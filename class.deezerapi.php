@@ -209,6 +209,14 @@ class deezerapi {
 			return $this->_callMethod('user/me/playlists', array(), 'get');
 		}
 	}
+	public function addSongToPlaylist($playlistId = null, $songId = null) {
+
+		if ($playlistId === null || $songId === null || !is_numeric($playlistId) || !is_numeric($songId)) {
+			throw new Exception("You must provide a valid playlist ID and song ID.", 1);
+		}
+
+		return $this->_add('playlist/'. $playlistId .'/tracks', null, "songs", $songId);
+	}
 
 	/* Private function to add, create element in Deezer API*/
 	private final function _add($type, $id=null, $context=null, $content=null) {
